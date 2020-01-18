@@ -1,0 +1,32 @@
+{
+    "name": "slclock",
+    "version": "0.1.0",
+    "private": true,
+    "license": "UNLICENSED",
+    "devDependencies": {
+        "@fitbit/sdk": "~4.1.0",
+        "@fitbit/sdk-cli": "^1.7.1",
+        "@types/node": "^10.16.2",
+        "fitbit-sdk-types": "~4.3.2",
+        "prettier": "^1.19.1",
+        "typescript": "^3.7.5"
+    },
+    "fitbit": {
+        "appUUID": "68a4bbf3-235c-4dc3-82d5-f85c51f5cf6b",
+        "appType": "clockface",
+        "appDisplayName": "SL Clock",
+        "iconFile": "resources/icon.png",
+        "wipeColor": "#ffffff",
+        "requestedPermissions": [],
+        "buildTargets": [
+            "mira"
+        ],
+        "i18n": {},
+        "defaultLanguage": "en-US"
+    },
+    "scripts": {
+        "build": "fitbit-build",
+        "debug": "fitbit"
+    },
+    "dependencies": {}
+}

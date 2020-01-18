@@ -1,0 +1,9 @@
+<svg class="background">
+
+  <text id="time" />
+
+  <line x1="10" y1="75" x2="100%-10" y2="75" />
+  <text id="date" />
+  <line x1="10" y1="110" x2="100%-10" y2="110" />
+
+</svg>
