@@ -35,5 +35,6 @@ line {
   text-length: 3;
 }
 #heart-rate-average {
-  text-length: 13;
+  text-length: 19;
+  fill: #999999;
 }
