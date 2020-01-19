@@ -1,9 +1,16 @@
-<svg class="background">
+<svg class="background" width="100%" height="100%">
 
-  <text id="time" />
+    <section class="time" width="100% - 10" x="5" y="0">
+        <text id="time" x="50%" y="75" />
+        <line x1="0" y1="80" x2="100%" y2="80" />
+        <text id="date" x="50%" y="115" />
+        <line x1="0" y1="125" x2="100%" y2="125" />
+    </section>
 
-  <line x1="10" y1="75" x2="100%-10" y2="75" />
-  <text id="date" />
-  <line x1="10" y1="110" x2="100%-10" y2="110" />
+    <section class="heart-rate" width="100% - 10" x="5" y="160">
+        <text x="0" y="0">❤️</text>
+        <text x="40" y="0" id="heart-rate-current"/>
+        <text x="80" y="0" id="heart-rate-average" />
+    </section>
 
 </svg>
