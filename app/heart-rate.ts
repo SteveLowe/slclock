@@ -22,14 +22,22 @@ export function startHeartRate(): void {
 }
 
 export function showHeartMinute(): void {
+  if (!averageLabel) {
+    return;
+  }
+
   const minute = getHeartPeriod(minuteHistory, 1);
   const fiveMins = getHeartPeriod(minuteHistory, 5);
-  const day = getHeartPeriod(dayHistory, 1);
+  const resting = getRestingHeartRate();
 
-  averageLabel.text = `${minute ?? " "}, ${fiveMins ?? " "}, ${day ?? " "}`;
+  averageLabel.text = `${minute ?? " "}, ${fiveMins ?? " "}, ${resting ?? " "}`;
 }
 
 function showHeartCurrent() {
+  if (!currentLabel) {
+    return;
+  }
+
   const heartRate = heartRateSensor?.heartRate;
   currentLabel.text = heartRate?.toString() ?? "n/a";
 }
@@ -67,4 +75,15 @@ function sumHeartRate(
     return current.averageHeartRate + accumulator;
   }
   return accumulator;
+}
+
+function getRestingHeartRate(): number | undefined {
+  if (!dayHistory) {
+    return undefined;
+  }
+  const [day] = dayHistory.query({ limit: 1 });
+  if (!day || !day.restingHeartRate) {
+    return undefined;
+  }
+  return day.restingHeartRate;
 }

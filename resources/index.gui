@@ -2,9 +2,7 @@
 
     <section class="time" width="100% - 10" x="5" y="0">
         <text id="time" x="50%" y="75" />
-        <line x1="0" y1="80" x2="100%" y2="80" />
         <text id="date" x="50%" y="115" />
-        <line x1="0" y1="125" x2="100%" y2="125" />
     </section>
 
     <section class="heart-rate" width="100% - 10" x="5" y="160">
