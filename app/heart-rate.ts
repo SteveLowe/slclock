@@ -12,6 +12,15 @@ let heartRateSensor: HeartRateSensor | undefined;
 const currentLabel = document.getElementById("heart-rate-current");
 const averageLabel = document.getElementById("heart-rate-average");
 
+function showHeartCurrent(): void {
+  if (!currentLabel) {
+    return;
+  }
+
+  const heartRate = heartRateSensor?.heartRate;
+  currentLabel.text = heartRate?.toString() ?? "n/a";
+}
+
 export function startHeartRate(): void {
   if (HeartRateSensor && !heartRateSensor) {
     // heart rate is available
@@ -21,25 +30,14 @@ export function startHeartRate(): void {
   }
 }
 
-export function showHeartMinute(): void {
-  if (!averageLabel) {
-    return;
+function sumHeartRate(
+  accumulator: number,
+  current: ActivityHistoryRecord
+): number {
+  if (current.averageHeartRate) {
+    return current.averageHeartRate + accumulator;
   }
-
-  const minute = getHeartPeriod(minuteHistory, 1);
-  const fiveMins = getHeartPeriod(minuteHistory, 5);
-  const resting = getRestingHeartRate();
-
-  averageLabel.text = `${minute ?? " "}, ${fiveMins ?? " "}, ${resting ?? " "}`;
-}
-
-function showHeartCurrent() {
-  if (!currentLabel) {
-    return;
-  }
-
-  const heartRate = heartRateSensor?.heartRate;
-  currentLabel.text = heartRate?.toString() ?? "n/a";
+  return accumulator;
 }
 
 function getHeartPeriod(
@@ -67,16 +65,6 @@ function getHeartPeriod(
   return average;
 }
 
-function sumHeartRate(
-  accumulator: number,
-  current: ActivityHistoryRecord
-): number {
-  if (current.averageHeartRate) {
-    return current.averageHeartRate + accumulator;
-  }
-  return accumulator;
-}
-
 function getRestingHeartRate(): number | undefined {
   if (!dayHistory) {
     return undefined;
@@ -86,4 +74,16 @@ function getRestingHeartRate(): number | undefined {
     return undefined;
   }
   return day.restingHeartRate;
+}
+
+export function showHeartMinute(): void {
+  if (!averageLabel) {
+    return;
+  }
+
+  const minute = getHeartPeriod(minuteHistory, 1);
+  const fiveMins = getHeartPeriod(minuteHistory, 5);
+  const resting = getRestingHeartRate();
+
+  averageLabel.text = `${minute ?? "?"}, ${fiveMins ?? "?"}, ${resting ?? "?"}`;
 }

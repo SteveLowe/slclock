@@ -1,0 +1,29 @@
+{
+  "env": {
+    "node": true
+  },
+  "globals": {},
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module",
+    //"project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "no-eval": "error",
+
+    "no-var": "warn",
+    "curly": "warn",
+    "no-redeclare": "warn"
+  }
+}

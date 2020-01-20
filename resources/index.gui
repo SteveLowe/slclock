@@ -5,10 +5,22 @@
         <text id="date" x="50%" y="115" />
     </section>
 
-    <section class="heart-rate" width="100% - 10" x="5" y="160">
-        <text x="0" y="0">❤️</text>
-        <text x="40" y="0" id="heart-rate-current"/>
+    <section class="health" width="100% - 10" x="5" y="160">
+        <text x="0" y="0" text-length="1">❤️</text>
+        <text x="40" y="0" id="heart-rate-current" />
         <text x="100" y="0" id="heart-rate-average" />
+    </section>
+
+    <section class="health" width="100% - 10" x="5" y="200">
+        <text x="0" y="0" text-length="1">🚶</text>
+        <text x="40" y="0" id="step-count" />
+        <text x="130" y="00" id="step-target" class="target" />
+    </section>
+
+    <section class="health" width="100% - 10" x="5" y="240">
+        <text x="0" y="0" text-length="1">⚡</text>
+        <text x="40" y="0" id="calories-count" />
+        <text x="130" y="00" id="calories-target" class="target" />
     </section>
 
 </svg>

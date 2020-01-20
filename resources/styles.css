@@ -14,6 +14,10 @@ line {
   text-anchor: middle;
 }
 
+text.target {
+  fill: #999999;
+}
+
 #time {
   font-size: 100;
   font-family: System-Bold;
@@ -26,7 +30,7 @@ line {
   text-length: 20;
 }
 
-.heart-rate text {
+.health text {
   font-size: 30;
   font-family: System-Regular;
   text-anchor: start;
@@ -37,4 +41,18 @@ line {
 #heart-rate-average {
   text-length: 19;
   fill: #999999;
+}
+
+#step-count {
+  text-length: 6;
+}
+#step-target {
+  text-length: 10;
+}
+
+#calories-count {
+  text-length: 5;
+}
+#calories-target {
+  text-length: 8;
 }
