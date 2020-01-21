@@ -1,5 +1,5 @@
 import document from "document";
-import * as util from "../utils";
+import * as util from "../common";
 
 const timeLabel = document.getElementById("time");
 const dateLabel = document.getElementById("date");

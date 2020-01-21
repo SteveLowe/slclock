@@ -8,7 +8,7 @@
     <section class="health" width="100% - 10" x="5" y="160">
         <text x="0" y="0" text-length="1">❤️</text>
         <text x="40" y="0" id="heart-rate-current" />
-        <text x="100" y="0" id="heart-rate-average" />
+        <text x="130" y="0" id="heart-rate-average" />
     </section>
 
     <section class="health" width="100% - 10" x="5" y="200">

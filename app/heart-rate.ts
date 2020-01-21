@@ -3,7 +3,6 @@ import { HeartRateSensor } from "heart-rate";
 import {
   minuteHistory,
   dayHistory,
-  ActivityHistory,
   ActivityHistoryRecord
 } from "user-activity";
 
@@ -12,7 +11,7 @@ let heartRateSensor: HeartRateSensor | undefined;
 const currentLabel = document.getElementById("heart-rate-current");
 const averageLabel = document.getElementById("heart-rate-average");
 
-function showHeartCurrent(): void {
+function showHeartRateCurrent(): void {
   if (!currentLabel) {
     return;
   }
@@ -25,7 +24,7 @@ export function startHeartRate(): void {
   if (HeartRateSensor && !heartRateSensor) {
     // heart rate is available
     heartRateSensor = new HeartRateSensor();
-    heartRateSensor.addEventListener("reading", showHeartCurrent);
+    heartRateSensor.addEventListener("reading", showHeartRateCurrent);
     heartRateSensor.start();
   }
 }
@@ -40,29 +39,23 @@ function sumHeartRate(
   return accumulator;
 }
 
-function getHeartPeriod(
-  period: ActivityHistory,
-  count: number
-): number | undefined {
-  if (!period) {
+function getAverageHeartRates(): [number, number] | undefined {
+  if (!minuteHistory) {
     return undefined;
   }
 
-  const data = period.query({ limit: count });
+  const data = minuteHistory.query({ limit: 5 });
   if (data.length == 0) {
     return undefined;
   }
 
-  if (data.length == 1) {
-    const heartRate = data[0].averageHeartRate;
-    if (heartRate) {
-      return heartRate;
-    }
+  const oneMin = data[0].averageHeartRate;
+  if (!oneMin) {
     return undefined;
   }
+  const fiveMins = data.reduce(sumHeartRate, 0) / data.length;
 
-  const average = data.reduce(sumHeartRate, 0) / data.length;
-  return average;
+  return [oneMin, fiveMins];
 }
 
 function getRestingHeartRate(): number | undefined {
@@ -76,14 +69,24 @@ function getRestingHeartRate(): number | undefined {
   return day.restingHeartRate;
 }
 
-export function showHeartMinute(): void {
+export function showHeartRateAverage(): void {
   if (!averageLabel) {
     return;
   }
 
-  const minute = getHeartPeriod(minuteHistory, 1);
-  const fiveMins = getHeartPeriod(minuteHistory, 5);
+  const averages = getAverageHeartRates();
   const resting = getRestingHeartRate();
 
-  averageLabel.text = `${minute ?? "?"}, ${fiveMins ?? "?"}, ${resting ?? "?"}`;
+  let averageMessage = "";
+  if (averages) {
+    const [oneMin, fiveMins] = averages;
+    averageMessage = `${oneMin}, ${fiveMins}`;
+  }
+  if (resting) {
+    averageMessage = averageMessage
+      ? `${averageMessage}, ${resting}`
+      : `${resting}`;
+  }
+
+  averageLabel.text = averageMessage;
 }

@@ -1,21 +1,22 @@
 import document from "document";
 import { today, goals } from "user-activity";
+import { getGoalClass } from "../common";
 
 const caloriesLabel = document.getElementById("calories-count");
 const targetLabel = document.getElementById("calories-target");
 
 export function showCalories(): void {
-  if (!today) {
+  if (!today || !caloriesLabel) {
     return;
   }
 
-  if (caloriesLabel) {
-    const calories = today.adjusted.calories;
-    caloriesLabel.text = `${calories ?? 0}`;
-  }
+  const calories = today.adjusted.calories ?? 0;
+  const caloriesGoal = goals.calories ?? 0;
+
+  caloriesLabel.text = `${calories}`;
 
   if (targetLabel) {
-    const caloriesGoal = goals.calories;
-    targetLabel.text = `/ ${caloriesGoal ?? "?"}`;
+    targetLabel.text = caloriesGoal > 0 ? `/ ${caloriesGoal ?? "?"}` : "";
+    caloriesLabel.class = getGoalClass(calories, caloriesGoal);
   }
 }

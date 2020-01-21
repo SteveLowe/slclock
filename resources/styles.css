@@ -17,6 +17,15 @@ line {
 text.target {
   fill: #999999;
 }
+text.goalMet {
+  fill: lightgreen;
+}
+text.goalNear {
+  fill: lightyellow;
+}
+text.goalNotMet {
+  fill: lightcoral;
+}
 
 #time {
   font-size: 100;
