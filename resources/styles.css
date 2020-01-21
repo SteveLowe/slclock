@@ -18,13 +18,13 @@ text.target {
   fill: #999999;
 }
 text.goalMet {
-  fill: lightgreen;
+  fill: fb-mint;
 }
 text.goalNear {
-  fill: lightyellow;
+  fill: fb-peach;
 }
 text.goalNotMet {
-  fill: lightcoral;
+  fill: fb-orange;
 }
 
 #time {

@@ -44,7 +44,7 @@ function getAverageHeartRates(): [number, number] | undefined {
     return undefined;
   }
 
-  const data = minuteHistory.query({ limit: 5 });
+  const data = minuteHistory.query({ limit: 15 });
   if (data.length == 0) {
     return undefined;
   }
@@ -53,9 +53,9 @@ function getAverageHeartRates(): [number, number] | undefined {
   if (!oneMin) {
     return undefined;
   }
-  const fiveMins = data.reduce(sumHeartRate, 0) / data.length;
+  const fifteenMins = Math.floor(data.reduce(sumHeartRate, 0) / data.length);
 
-  return [oneMin, fiveMins];
+  return [oneMin, fifteenMins];
 }
 
 function getRestingHeartRate(): number | undefined {
@@ -79,8 +79,8 @@ export function showHeartRateAverage(): void {
 
   let averageMessage = "";
   if (averages) {
-    const [oneMin, fiveMins] = averages;
-    averageMessage = `${oneMin}, ${fiveMins}`;
+    const [oneMin, fifteenMins] = averages;
+    averageMessage = `${oneMin}, ${fifteenMins}`;
   }
   if (resting) {
     averageMessage = averageMessage

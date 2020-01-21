@@ -16,7 +16,7 @@ export function showStepCount(): void {
   stepLabel.text = `${steps}`;
 
   if (targetLabel) {
+    targetLabel.text = stepGoal > 0 ? `${stepGoal}` : "";
     stepLabel.class = getGoalClass(steps, stepGoal);
-    targetLabel.text = stepGoal > 0 ? ` / ${stepGoal}` : "";
   }
 }

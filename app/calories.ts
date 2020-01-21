@@ -16,7 +16,7 @@ export function showCalories(): void {
   caloriesLabel.text = `${calories}`;
 
   if (targetLabel) {
-    targetLabel.text = caloriesGoal > 0 ? `/ ${caloriesGoal ?? "?"}` : "";
+    targetLabel.text = caloriesGoal > 0 ? `${caloriesGoal}` : "";
     caloriesLabel.class = getGoalClass(calories, caloriesGoal);
   }
 }
