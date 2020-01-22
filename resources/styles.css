@@ -64,3 +64,13 @@ text.goalNear {
 #calories-target {
   text-length: 8;
 }
+.weather text {
+  font-size: 30;
+}
+#weather-current {
+  text-length: 10;
+}
+#weather-location {
+  font-size: 20;
+  text-length: 24;
+}

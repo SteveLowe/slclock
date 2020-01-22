@@ -15,6 +15,9 @@
         "prettier": "^1.19.1",
         "typescript": "^3.7.5"
     },
+    "dependencies": {
+        "fitbit-asap": "^1.2.3"
+    },
     "fitbit": {
         "appUUID": "68a4bbf3-235c-4dc3-82d5-f85c51f5cf6b",
         "appType": "clockface",
@@ -23,7 +26,9 @@
         "wipeColor": "#ffffff",
         "requestedPermissions": [
             "access_heart_rate",
-            "access_activity"
+            "access_activity",
+            "access_internet",
+            "access_location"
         ],
         "buildTargets": [
             "mira"
@@ -34,6 +39,5 @@
     "scripts": {
         "build": "fitbit-build",
         "debug": "fitbit"
-    },
-    "dependencies": {}
+    }
 }

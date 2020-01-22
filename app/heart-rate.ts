@@ -2,13 +2,18 @@ import document from "document";
 import { HeartRateSensor } from "heart-rate";
 import { minuteHistory, dayHistory } from "user-activity";
 
-let heartRateSensor: HeartRateSensor | undefined;
 let restingRate: number | undefined;
 
 const currentLabel = document.getElementById("heart-rate-current");
 const averageLabel = document.getElementById("heart-rate-average");
 
-function getHeartClass(heartRate: number, resting: number): string {
+function getHeartClass(
+  heartRate: number | null | undefined,
+  resting: number | undefined
+): string {
+  if (!heartRate || !resting) {
+    return "";
+  }
   if (heartRate < resting * 0.95) {
     return "red";
   }
@@ -19,38 +24,6 @@ function getHeartClass(heartRate: number, resting: number): string {
     return "amber";
   }
   return "";
-}
-
-function showHeartRateCurrent(): void {
-  if (!currentLabel) {
-    return;
-  }
-
-  const heartRate = heartRateSensor?.heartRate;
-  currentLabel.text = heartRate?.toString() ?? "-";
-  if (heartRate && restingRate) {
-    currentLabel.class = getHeartClass(heartRate, restingRate);
-  } else {
-    currentLabel.class = "";
-  }
-}
-
-export function startHeartRate(): void {
-  if (HeartRateSensor && !heartRateSensor) {
-    // heart rate is available
-    heartRateSensor = new HeartRateSensor();
-    heartRateSensor.addEventListener("reading", showHeartRateCurrent);
-    heartRateSensor.start();
-    showHeartRateCurrent();
-  }
-}
-export function stopHeartRate(): void {
-  if (HeartRateSensor && heartRateSensor) {
-    heartRateSensor.removeEventListener("reading", showHeartRateCurrent);
-    heartRateSensor.stop();
-    heartRateSensor = undefined;
-    showHeartRateCurrent();
-  }
 }
 
 function getAverageHeartRates(minutes: number): [number?, number?] {
@@ -102,4 +75,27 @@ export function showHeartRateAverage(): void {
   }
 
   averageLabel.text = averageMessage;
+}
+
+let heartRateSensor: HeartRateSensor | undefined;
+if (HeartRateSensor && currentLabel) {
+  heartRateSensor = new HeartRateSensor();
+  heartRateSensor?.addEventListener("reading", () => {
+    const heartRate = heartRateSensor?.heartRate;
+    currentLabel.text = heartRate?.toString() ?? "-";
+    currentLabel.class = getHeartClass(heartRate, restingRate);
+  });
+}
+function clearCurrentHeartRate(): void {
+  if (currentLabel) {
+    currentLabel.text = "-";
+    currentLabel.class = "";
+  }
+}
+export function startHeartRate(): void {
+  heartRateSensor?.start();
+}
+export function stopHeartRate(): void {
+  heartRateSensor?.stop();
+  clearCurrentHeartRate();
 }

@@ -8,6 +8,7 @@ import {
 import { showStepCount } from "./steps";
 import { showCalories } from "./calories";
 import { display } from "display";
+import { updateWeather } from "./weather";
 
 let currentTime = new Date();
 
@@ -20,6 +21,7 @@ function updateDisplay(): void {
 
 function handleTick(evt: TickEvent): void {
   currentTime = evt.date;
+  updateWeather();
   if (display.on) {
     updateDisplay();
   }
@@ -27,8 +29,8 @@ function handleTick(evt: TickEvent): void {
 
 display.addEventListener("change", () => {
   if (display.on) {
-    updateDisplay();
     startHeartRate();
+    updateDisplay();
   } else {
     stopHeartRate();
   }
