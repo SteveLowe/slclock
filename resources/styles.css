@@ -14,19 +14,6 @@ line {
   text-anchor: middle;
 }
 
-text.target {
-  fill: #999999;
-}
-text.goalMet {
-  fill: fb-mint;
-}
-text.goalNear {
-  fill: fb-peach;
-}
-text.goalNotMet {
-  fill: fb-orange;
-}
-
 #time {
   font-size: 100;
   font-family: System-Bold;
@@ -44,8 +31,24 @@ text.goalNotMet {
   font-family: System-Regular;
   text-anchor: start;
 }
+text.target {
+  fill: #999999;
+}
+text.goalMet {
+  fill: fb-mint;
+}
+text.goalNear {
+  fill: fb-yellow;
+}
+
 #heart-rate-current {
   text-length: 3;
+}
+#heart-rate-current.red {
+  fill: fb-red;
+}
+#heart-rate-current.amber {
+  fill: fb-yellow;
 }
 #heart-rate-average {
   text-length: 19;

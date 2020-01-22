@@ -7,9 +7,23 @@ import {
 } from "user-activity";
 
 let heartRateSensor: HeartRateSensor | undefined;
+let restingRate: number | undefined;
 
 const currentLabel = document.getElementById("heart-rate-current");
 const averageLabel = document.getElementById("heart-rate-average");
+
+function getHeartClass(heartRate: number, resting: number): string {
+  if (heartRate < resting * 0.95) {
+    return "red";
+  }
+  if (heartRate > resting * 2.0) {
+    return "red";
+  }
+  if (heartRate > resting * 1.5) {
+    return "amber";
+  }
+  return "";
+}
 
 function showHeartRateCurrent(): void {
   if (!currentLabel) {
@@ -17,7 +31,12 @@ function showHeartRateCurrent(): void {
   }
 
   const heartRate = heartRateSensor?.heartRate;
-  currentLabel.text = heartRate?.toString() ?? "n/a";
+  currentLabel.text = heartRate?.toString() ?? "-";
+  if (heartRate && restingRate) {
+    currentLabel.class = getHeartClass(heartRate, restingRate);
+  } else {
+    currentLabel.class = "";
+  }
 }
 
 export function startHeartRate(): void {
@@ -26,6 +45,14 @@ export function startHeartRate(): void {
     heartRateSensor = new HeartRateSensor();
     heartRateSensor.addEventListener("reading", showHeartRateCurrent);
     heartRateSensor.start();
+  }
+}
+export function stopHeartRate(): void {
+  if (HeartRateSensor && heartRateSensor) {
+    heartRateSensor.removeEventListener("reading", showHeartRateCurrent);
+    heartRateSensor.stop();
+    heartRateSensor = undefined;
+    showHeartRateCurrent();
   }
 }
 
@@ -75,17 +102,17 @@ export function showHeartRateAverage(): void {
   }
 
   const averages = getAverageHeartRates();
-  const resting = getRestingHeartRate();
+  restingRate = getRestingHeartRate();
 
   let averageMessage = "";
   if (averages) {
     const [oneMin, fifteenMins] = averages;
     averageMessage = `${oneMin}, ${fifteenMins}`;
   }
-  if (resting) {
+  if (restingRate) {
     averageMessage = averageMessage
-      ? `${averageMessage}, ${resting}`
-      : `${resting}`;
+      ? `${averageMessage}, ${restingRate}`
+      : `${restingRate}`;
   }
 
   averageLabel.text = averageMessage;
