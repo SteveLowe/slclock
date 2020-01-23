@@ -1,13 +1,9 @@
 .background {
-  viewport-fill: black;
+  viewport-fill: fb-black;
 }
 
 text {
-  fill: white;
-}
-
-line {
-  fill: #666666;
+  fill: fb-white;
 }
 
 .time text {
@@ -32,13 +28,13 @@ line {
   text-anchor: start;
 }
 text.target {
-  fill: #999999;
+  fill: fb-light-gray;
 }
 text.goalMet {
   fill: fb-mint;
 }
 text.goalNear {
-  fill: fb-yellow;
+  fill: yellow;
 }
 
 #heart-rate-current {
@@ -52,7 +48,7 @@ text.goalNear {
 }
 #heart-rate-average {
   text-length: 19;
-  fill: #999999;
+  fill: fb-light-gray;
 }
 
 #step-count {

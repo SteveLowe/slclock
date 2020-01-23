@@ -1,10 +1,6 @@
 import document from "document";
 import { HeartRateSensor } from "heart-rate";
-import {
-  minuteHistory,
-  dayHistory,
-  ActivityHistoryRecord
-} from "user-activity";
+import { minuteHistory, dayHistory } from "user-activity";
 
 let heartRateSensor: HeartRateSensor | undefined;
 let restingRate: number | undefined;
@@ -45,6 +41,7 @@ export function startHeartRate(): void {
     heartRateSensor = new HeartRateSensor();
     heartRateSensor.addEventListener("reading", showHeartRateCurrent);
     heartRateSensor.start();
+    showHeartRateCurrent();
   }
 }
 export function stopHeartRate(): void {
@@ -56,33 +53,26 @@ export function stopHeartRate(): void {
   }
 }
 
-function sumHeartRate(
-  accumulator: number,
-  current: ActivityHistoryRecord
-): number {
-  if (current.averageHeartRate) {
-    return current.averageHeartRate + accumulator;
-  }
-  return accumulator;
-}
-
-function getAverageHeartRates(): [number, number] | undefined {
+function getAverageHeartRates(minutes: number): [number?, number?] {
   if (!minuteHistory) {
-    return undefined;
+    return [undefined, undefined];
   }
 
-  const data = minuteHistory.query({ limit: 15 });
+  const data = minuteHistory.query({ limit: minutes });
   if (data.length == 0) {
-    return undefined;
+    return [undefined, undefined];
   }
 
-  const oneMin = data[0].averageHeartRate;
-  if (!oneMin) {
-    return undefined;
-  }
-  const fifteenMins = Math.floor(data.reduce(sumHeartRate, 0) / data.length);
+  const oneMinAverage = data[0].averageHeartRate as number | undefined;
+  const validHeartRates = data
+    .map(d => d.averageHeartRate)
+    .filter(d => !!d) as number[];
 
-  return [oneMin, fifteenMins];
+  const fullAverage = Math.floor(
+    validHeartRates.reduce((acc, cur) => acc + cur, 0) / validHeartRates.length
+  );
+
+  return [oneMinAverage, fullAverage];
 }
 
 function getRestingHeartRate(): number | undefined {
@@ -90,10 +80,7 @@ function getRestingHeartRate(): number | undefined {
     return undefined;
   }
   const [day] = dayHistory.query({ limit: 1 });
-  if (!day || !day.restingHeartRate) {
-    return undefined;
-  }
-  return day.restingHeartRate;
+  return day?.restingHeartRate as number | undefined;
 }
 
 export function showHeartRateAverage(): void {
@@ -101,17 +88,16 @@ export function showHeartRateAverage(): void {
     return;
   }
 
-  const averages = getAverageHeartRates();
+  const [oneMin, fifteenMins] = getAverageHeartRates(15);
   restingRate = getRestingHeartRate();
 
   let averageMessage = "";
-  if (averages) {
-    const [oneMin, fifteenMins] = averages;
-    averageMessage = `${oneMin}, ${fifteenMins}`;
+  if (oneMin || fifteenMins) {
+    averageMessage = `${oneMin ?? "-"}, ${fifteenMins ?? "-"}`;
   }
   if (restingRate) {
     averageMessage = averageMessage
-      ? `${averageMessage}, ${restingRate}`
+      ? `${averageMessage} | ${restingRate}`
       : `${restingRate}`;
   }
 
