@@ -12,13 +12,13 @@
         <text x="130" y="30" id="heart-rate-average" />
     </section>
 
-    <section class="health" x="5" y="165" width="100% - 10" height="40">
+    <section class="health" x="5" y="163" width="100% - 10" height="40">
         <text x="0" y="30" text-length="1">🚶</text>
         <text x="40" y="30" id="step-count" />
         <text x="130" y="30" id="step-target" class="target" />
     </section>
 
-    <section class="health" x="5" y="205" width="100% - 10" height="40">
+    <section class="health" x="5" y="200" width="100% - 10" height="40">
         <text x="0" y="30" text-length="1">⚡</text>
         <text x="40" y="30" id="calories-count" />
         <text x="130" y="30" id="calories-target" class="target" />

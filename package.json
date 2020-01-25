@@ -28,7 +28,8 @@
             "access_heart_rate",
             "access_activity",
             "access_internet",
-            "access_location"
+            "access_location",
+            "run_background"
         ],
         "buildTargets": [
             "mira"
