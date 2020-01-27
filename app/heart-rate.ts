@@ -14,13 +14,13 @@ function getHeartClass(
   if (!heartRate || !resting) {
     return "";
   }
-  if (heartRate < resting * 0.95) {
+  if (heartRate < resting * 0.9) {
     return "red";
   }
-  if (heartRate > resting * 2.0) {
+  if (heartRate > resting * 2.25) {
     return "red";
   }
-  if (heartRate > resting * 1.5) {
+  if (heartRate > resting * 1.6) {
     return "amber";
   }
   return "";
