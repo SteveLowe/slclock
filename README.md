@@ -26,9 +26,19 @@ fitbit$ connect phone
 # then
 fitbit$ build-and-install
 # or
-fitbit% bi
+fitbit$ bi
 ```
 
 ## Screen shot
 
-![Screenshot](./screenshot.png "logo")
+![screenshot](./screenshot.png)
+
+Metrics are:
+
+```text
+❤️ current heart rate   1m avg, 15m avg | resting
+🚶  step count today     target
+⚡ calories today       target
+Current Weather
+Current Location
+```
