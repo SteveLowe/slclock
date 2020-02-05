@@ -29,6 +29,12 @@ fitbit$ build-and-install
 fitbit$ bi
 ```
 
+## Testing
+
+```powershell
+npm run test
+```
+
 ## Screen shot
 
 ![screenshot](./screenshot.png)

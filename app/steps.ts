@@ -1,6 +1,6 @@
 import document from "document";
 import { today, goals } from "user-activity";
-import { getGoalClass } from "../common";
+import { getGoalClass } from "./thresholds";
 
 const stepLabel = document.getElementById("step-count");
 const targetLabel = document.getElementById("step-target");

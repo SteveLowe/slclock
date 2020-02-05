@@ -1,6 +1,6 @@
 import document from "document";
 import { today, goals } from "user-activity";
-import { getGoalClass } from "../common";
+import { getGoalClass } from "./thresholds";
 
 const caloriesLabel = document.getElementById("calories-count");
 const targetLabel = document.getElementById("calories-target");

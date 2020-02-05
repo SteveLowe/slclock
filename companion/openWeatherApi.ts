@@ -29,7 +29,9 @@ const conditionMap: { [key: string]: WeatherCondition } = {
   "13": "snow",
   "50": "mist"
 };
-export function parseCondition(element: WeatherElement): WeatherCondition {
+export function parseCondition(
+  element: WeatherElement | undefined
+): WeatherCondition {
   if (!element?.icon || element.icon.length < 2) {
     return "unknown";
   }

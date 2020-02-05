@@ -1,30 +1,12 @@
 import document from "document";
 import { HeartRateSensor } from "heart-rate";
 import { minuteHistory, dayHistory } from "user-activity";
+import { getHeartClass } from "./thresholds";
 
 let restingRate: number | undefined;
 
 const currentLabel = document.getElementById("heart-rate-current");
 const averageLabel = document.getElementById("heart-rate-average");
-
-function getHeartClass(
-  heartRate: number | null | undefined,
-  resting: number | undefined
-): string {
-  if (!heartRate || !resting) {
-    return "";
-  }
-  if (heartRate < resting * 0.9) {
-    return "red";
-  }
-  if (heartRate > resting * 2.25) {
-    return "red";
-  }
-  if (heartRate > resting * 1.6) {
-    return "amber";
-  }
-  return "";
-}
 
 function getAverageHeartRates(minutes: number): [number?, number?] {
   if (!minuteHistory) {
