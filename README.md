@@ -48,3 +48,8 @@ Metrics are:
 Current Weather
 Current Location
 ```
+
+## Attribution
+
+Weather icons by [Laura Reen](http://laurareen.com/).
+[www.iconfinder.com/iconsets/the-weather-is-nice-today](https://www.iconfinder.com/iconsets/the-weather-is-nice-today)
