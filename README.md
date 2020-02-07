@@ -17,6 +17,8 @@ fitbit$ build
 
 ## Installing
 
+[NodeJs is required](https://nodejs.org)
+
 ```powershell
 npx fitbit
 # enable developer bridge on phone and watch

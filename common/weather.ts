@@ -1,9 +1,10 @@
-export interface WeatherResult {
+import { CacheItem } from "./cache";
+
+export interface WeatherResult extends CacheItem {
   hasData: boolean;
   location: string;
   temperatureC: number;
   condition: WeatherCondition;
-  timestamp: string;
 }
 
 export type WeatherCondition =

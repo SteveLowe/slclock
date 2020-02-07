@@ -1,3 +1,4 @@
+import "jest";
 import { getHeartClass, getGoalClass } from "./thresholds";
 
 // getHeartClass
