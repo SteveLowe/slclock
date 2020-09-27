@@ -4,7 +4,7 @@ const oneMinute = 60 * 1000;
 const gpsOptions: PositionOptions = {
   enableHighAccuracy: false,
   maximumAge: 30 * oneMinute,
-  timeout: 5 * oneMinute
+  timeout: 5 * oneMinute,
 };
 
 /**

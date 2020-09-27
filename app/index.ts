@@ -3,12 +3,13 @@ import { showCurrentTime } from "./time";
 import {
   startHeartRate,
   stopHeartRate,
-  showHeartRateAverage
+  showHeartRateAverage,
 } from "./heart-rate";
 import { showStepCount } from "./steps";
 import { showCalories } from "./calories";
 import { display } from "display";
 import { updateWeather } from "./weather";
+import { showActiveMinutesCount } from "./active-minutes";
 
 let currentTime = new Date();
 
@@ -17,6 +18,7 @@ function updateDisplay(): void {
   showHeartRateAverage();
   showStepCount();
   showCalories();
+  showActiveMinutesCount();
 }
 
 function handleTick(evt: TickEvent): void {

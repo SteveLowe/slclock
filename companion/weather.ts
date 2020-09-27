@@ -33,7 +33,7 @@ async function getNewCurrentWeather(): Promise<WeatherResult> {
       location: "",
       temperatureC: 0,
       condition: "unknown",
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
   }
 
@@ -58,7 +58,7 @@ export async function sendCurrentWeather(): Promise<void> {
   const weather = await getCurrentWeatherAsync();
   const message: MessageResponse<WeatherResult> = {
     command: "Weather",
-    data: weather
+    data: weather,
   };
   asap.send(message);
 }
@@ -67,8 +67,8 @@ function clearCachedWeather(): void {
   storage.remove(cacheKey);
 }
 
-settingsStorage.addEventListener("change", evt =>
-  handleSettingChange<string>(evt, "weatherApiKey", newValue => {
+settingsStorage.addEventListener("change", (evt) =>
+  handleSettingChange<string>(evt, "weatherApiKey", (newValue) => {
     apiKey = newValue;
     clearCachedWeather();
     sendCurrentWeather();

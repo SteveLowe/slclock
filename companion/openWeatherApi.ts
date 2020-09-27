@@ -27,7 +27,7 @@ const conditionMap: { [key: string]: WeatherCondition } = {
   "10": "rain",
   "11": "thunderstorms",
   "13": "snow",
-  "50": "mist"
+  "50": "mist",
 };
 export function parseCondition(
   element: WeatherElement | undefined
@@ -60,7 +60,7 @@ export async function getCurrentWeatherAsync(
     location: data.name,
     temperatureC: Math.round(data.main.temp * 10) / 10, // force 1dp
     condition: parseCondition(data.weather[0]),
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
   return result;
 }

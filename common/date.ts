@@ -8,10 +8,10 @@ const months = [
   "June",
   "July",
   "August",
-  "September",
+  "Sept",
   "October",
   "November",
-  "December"
+  "December",
 ];
 
 export function getWeekDay(weekDayNum: number): string {

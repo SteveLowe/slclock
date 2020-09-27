@@ -20,8 +20,8 @@ function getAverageHeartRates(minutes: number): [number?, number?] {
 
   const oneMinAverage = data[0].averageHeartRate as number | undefined;
   const validHeartRates = data
-    .map(d => d.averageHeartRate)
-    .filter(d => !!d) as number[];
+    .map((d) => d.averageHeartRate)
+    .filter((d) => !!d) as number[];
 
   const fullAverage = Math.floor(
     validHeartRates.reduce((acc, cur) => acc + cur, 0) / validHeartRates.length
