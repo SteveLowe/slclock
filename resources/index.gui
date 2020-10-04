@@ -1,37 +1,37 @@
 <svg class="background" width="300" height="300">
   <!-- versa 2 is 300px by 300px -->
 
-  <section class="time" x="5" y="0" width="290" height="140">
-    <text id="time" x="50%" y="75" />
-    <text id="date" x="50%" y="115" />
+  <section class="time" x="0" y="0" width="300" height="130">
+    <text id="time" x="50%" y="70" />
+    <text id="date" x="50%" y="110" />
   </section>
 
-  <section class="health" x="5" y="125" width="290" height="40">
+  <section x="0" y="120" width="300" height="40">
     <text x="0" y="30" text-length="1">❤️</text>
     <text x="40" y="30" id="heart-rate-current" />
-    <text x="130" y="30" id="heart-rate-average" />
+    <text x="120" y="30" id="heart-rate-average" />
   </section>
 
-  <section class="health" x="5" y="163" width="290" height="40">
-    <text x="0" y="30" text-length="1">🚶</text>
-    <text x="40" y="30" id="step-count" />
-    <text x="130" y="30" id="step-target" class="target" />
-  </section>
-
-  <section class="health" x="5" y="200" width="290" height="40">
+  <section x="0" y="158" width="300" height="40">
     <text x="0" y="30" text-length="1">⚡</text>
     <text x="40" y="30" id="calories-count" />
-    <text x="130" y="30" id="calories-target" class="target" />
+    <text x="120" y="30" id="calories-target" class="target" />
   </section>
 
-  <section class="health" x="5" y="243" width="290" height="40">
+  <section x="0" y="196" width="300" height="40">
+    <text x="0" y="30" text-length="1">🚶</text>
+    <text x="40" y="30" id="step-count" />
+    <text x="120" y="30" id="step-target" class="target" />
+    <text x="190" y="30" id="distance-count" />
+  </section>
+
+  <section x="0" y="234" width="300" height="60">
     <text x="0" y="30" text-length="1">⌛</text>
     <text x="40" y="30" id="active-minutes-count" />
-  </section>
 
-  <section class="weather" x="130" y="243" width="100" height="57">
-    <image x="0" y="0" id="weather-icon" href="" width="40" height="40"/>
-    <text x="45" y="25" id="weather-current" />
-    <text x="0" y="52" id="weather-location" />
+    <image x="140" y="0" id="weather-icon" href="" width="40" height="40"/>
+    <text x="185" y="30" id="weather-temperature" />
+    <text x="0" y="60" id="weather-location" />
+    <text x="140" y="63" id="weather-text" />
   </section>
 </svg>

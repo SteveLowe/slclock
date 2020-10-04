@@ -1,37 +1,44 @@
 import document from "document";
-import { WeatherResult, MessageResponse } from "../common";
+import {
+  WeatherResult,
+  MessageResponse,
+  WeatherConditionAsText,
+} from "../common";
 import asap from "fitbit-asap/app";
 import cache from "./fsCache";
 
 const iconLabel = document.getElementById(
   "weather-icon"
 ) as ImageElement | null;
-const currentLabel = document.getElementById("weather-current");
+const temperatureLabel = document.getElementById("weather-temperature");
 const locationLabel = document.getElementById("weather-location");
+const textLabel = document.getElementById("weather-text");
 
 const cacheKey = "Weather";
-const cacheRenewTtl = 10 * 60; // 10m
+const cacheRenewTtl = 60; // 1m
 const cacheTtl = 60 * 60; // 1h
 
 export function updateWeather(): void {
-  if (!cache.get(cacheKey, cacheRenewTtl)) {
-    asap.send({ command: "Weather" }, { timeout: 60 * 1000 });
+  const weather = cache.get<WeatherResult>(cacheKey, cacheRenewTtl);
+  if (!weather?.hasData) {
+    asap.send({ command: "Weather" }, { timeout: cacheRenewTtl * 1000 });
   }
 }
 
 function showCurrentWeather(): void {
-  if (!currentLabel || !iconLabel || !locationLabel) {
+  if (!temperatureLabel || !iconLabel || !locationLabel || !textLabel) {
     return;
   }
 
   const currentWeather = cache.get<WeatherResult>(cacheKey, cacheTtl);
   if (currentWeather?.hasData) {
     iconLabel.href = `img/${currentWeather.condition}.png`;
-    currentLabel.text = `${currentWeather.temperatureC}°C`;
+    temperatureLabel.text = `${currentWeather.temperatureC}°C`;
     locationLabel.text = currentWeather.location;
+    textLabel.text = WeatherConditionAsText[currentWeather.condition];
   } else {
     iconLabel.href = "";
-    currentLabel.text = "";
+    temperatureLabel.text = "";
     locationLabel.text = "";
   }
 }

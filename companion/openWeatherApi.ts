@@ -55,9 +55,9 @@ export async function getCurrentWeatherAsync(
     `lat=${lat}&lon=${lon}&units=metric`,
     apiKey
   );
-  const result = {
+  const result: WeatherResult = {
     hasData: true,
-    location: data.name,
+    location: data.name.substr(0, 24),
     temperatureC: Math.round(data.main.temp * 10) / 10, // force 1dp
     condition: parseCondition(data.weather[0]),
     timestamp: new Date().toISOString(),

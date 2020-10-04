@@ -5,11 +5,13 @@ import { MessageResponse, WeatherResult } from "../common";
 import storage from "./storage";
 import { getSetting, handleSettingChange } from "./settings";
 import { settingsStorage } from "settings";
+import { me } from "companion";
 
 const cacheKey = "weather";
 const cacheTtl = 10 * 60; // 10m
 
 let apiKey = getSetting<string>("weatherApiKey");
+let cacheWeather = getSetting<boolean>("weatherCacheEnabled");
 
 async function getNewCurrentWeather(): Promise<WeatherResult> {
   console.log("Requesting Weather");
@@ -44,12 +46,15 @@ async function getNewCurrentWeather(): Promise<WeatherResult> {
  * Get the current weather of the current location
  * Will return cached data if available and recent
  */
-const getCurrentWeatherAsync = (): Promise<WeatherResult> =>
-  storage.getOrAddAsync<WeatherResult>(
-    cacheKey,
-    cacheTtl,
-    getNewCurrentWeather
-  );
+const getCurrentWeatherAsync = (): Promise<WeatherResult> => {
+  return cacheWeather
+    ? storage.getOrAddAsync<WeatherResult>(
+        cacheKey,
+        cacheTtl,
+        getNewCurrentWeather
+      )
+    : getNewCurrentWeather();
+};
 
 /**
  * get current weather data, and post as message to app
@@ -60,6 +65,7 @@ export async function sendCurrentWeather(): Promise<void> {
     command: "Weather",
     data: weather,
   };
+  console.log(`Sending weather: ${weather.hasData}`);
   asap.send(message);
 }
 
@@ -67,10 +73,21 @@ function clearCachedWeather(): void {
   storage.remove(cacheKey);
 }
 
-settingsStorage.addEventListener("change", (evt) =>
+settingsStorage.addEventListener("change", (evt) => {
   handleSettingChange<string>(evt, "weatherApiKey", (newValue) => {
     apiKey = newValue;
     clearCachedWeather();
     sendCurrentWeather();
-  })
-);
+  });
+  handleSettingChange<boolean>(evt, "weatherCachedEnabled", (newValue) => {
+    cacheWeather = newValue;
+    clearCachedWeather();
+    sendCurrentWeather();
+  });
+});
+
+me.monitorSignificantLocationChanges = true;
+me.onsignificantlocationchange = () => {
+  clearCachedWeather();
+  sendCurrentWeather();
+};

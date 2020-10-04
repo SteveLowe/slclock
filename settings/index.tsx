@@ -9,6 +9,7 @@ function SLClockSettings(props): JSX.Element {
         }
       >
         <TextInput settingsKey="weatherApiKey" title="OpenWeatherMap Api Key" />
+        <Toggle settingsKey="weatherCacheEnabled" label="Cache Weather" />
       </Section>
     </Page>
   );

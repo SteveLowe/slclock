@@ -22,7 +22,7 @@ text {
   text-length: 20;
 }
 
-.health text {
+section text {
   font-size: 30;
   font-family: System-Regular;
   text-anchor: start;
@@ -57,6 +57,9 @@ text.goalNear {
 #step-target {
   text-length: 10;
 }
+#distance-count {
+  text-length: 6;
+}
 
 #calories-count {
   text-length: 5;
@@ -64,13 +67,14 @@ text.goalNear {
 #calories-target {
   text-length: 8;
 }
-.weather text {
-  font-size: 30;
-}
-#weather-current {
+#weather-temperature {
   text-length: 10;
 }
 #weather-location {
   font-size: 20;
   text-length: 24;
+}
+#weather-text {
+  font-size: 25;
+  text-length: 20;
 }
