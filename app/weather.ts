@@ -40,6 +40,7 @@ function showCurrentWeather(): void {
     iconLabel.href = "";
     temperatureLabel.text = "";
     locationLabel.text = "";
+    textLabel.text = "";
   }
 }
 
